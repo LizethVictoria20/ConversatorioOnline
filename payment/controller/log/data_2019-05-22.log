@@ -1,0 +1,26 @@
+#-------------------------------------------------------
+# Nuevo Pago Confirmado 
+#-------------------------------------------------------
+/---reference_sale => reference_sale---/
+/---reference_pol => reference_pol---/
+/---transaction_date => transaction_date---/
+/---response_code_pol => 4---/
+/---value => 50---/
+/---currency => USD---/
+/---state_pol => 1---/
+/---sign => 123---/
+/---email_buyer => pipehernandez1020@gmail.com---/
+/---response_message_pol => response---/
+#-------------------------------------------------------
+# Nuevo Pago Confirmado 
+#-------------------------------------------------------
+/---reference_sale => reference_sale---/
+/---reference_pol => reference_pol---/
+/---transaction_date => transaction_date---/
+/---response_code_pol => 4---/
+/---value => 50---/
+/---currency => USD---/
+/---state_pol => 1---/
+/---sign => 123---/
+/---email_buyer => pipehernandez1020@gmail.com---/
+/---response_message_pol => response---/

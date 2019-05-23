@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="login/images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="login/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="login/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="login/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="login/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="login/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="login/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="login/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="login/css/main.css">
+        
+        <script>
+            function ingresar(){
+                if ($('input[name=usuario_login]').val().length<=1) {                    
+                    return false;    
+                }
+                if ($('input[name=clave_login]').val().length<=1) {                    
+                    return false;    
+                }
+                console.log("aqui");
+                    // get the form data
+                    // there are many ways to get this data using jQuery 
+                    // (you can use the class or id also)
+                    var data = {
+                        'usuario'     : $('input[name=usuario_login]').val(),
+                        'clave'       : $('input[name=clave_login]').val(),
+                        'option'      : "crearSesion"
+                    };
+                    // process the form
+                    $.ajax({
+                            data:  data,
+                            url:   'controller/Cliente.php',
+                            type:  'post',
+
+                            beforeSend: function () {
+                                    $(".userNameResult").html('<span>Procesando, Espere por favor.</span>');
+                                    $('.userNameResult').html('<span style="color: #4285f4 !important">Procesando, Espere por favor.</span>');
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                    console.log(jqXHR);
+                                    $('.userNameResult').html('<span style="color: #dc3f34 !important">Sin conexión a internet.</span>');
+                            },
+                            success:  function (response,estado,objeto) {
+                                   console.log(response);
+                                    if (response=="Exito") {                                    
+                                     setTimeout(function(){window.location.href = "intro.php"}, 1200);
+                                    }
+                                   else{
+                                     $('.userNameResult').html('<span style="color: #dc3f34 !important">Error de usuario o clave.</span>');
+                                   } 
+                            },
+
+                    });           
+           }
+           
+           function verificarSesion(){
+                $.ajax({
+                   type   : 'POST',
+                   url    : 'controller/Cliente.php',
+                   data  : {option: "validarSesion"},
+                   beforeSend: function () {
+                       //cargando
+                    },
+                   success  : function(data){
+                       console.log(data);
+                     if (data=="true") {
+                         //sesion diferente a mesero
+                         window.location.href = "intro.php"
+                     }
+                  },
+                   error  : function(data){
+                    //console.log(data);
+                    //tal vez por falla de conexion,
+                    //no se deberia cerrar sesion por este motivo
+                    //cerrarSesionApp()
+                  }
+               });      
+                   
+            }
+            
+        </script>
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('login/images/bg-01.png');">
+			<div class="wrap-login100">
+                            <form action="javascript:void(0);"  class="login100-form validate-form" autocomplete="off">
+					<span class="login100-form-logo">
+                                                <img src="login/images/icons/im.png" width="118" height="118">
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						Iniciar Sesión
+					</span>
+                                        <div class="userNameResult"></div><br>
+
+					<div class="wrap-input100 validate-input" data-validate = "Ingrese Usuario">
+                                            <input class="input100" type="text" name="usuario_login" placeholder="Usuario">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Ingrese Contraseña">
+						<input class="input100" type="password" name="clave_login" placeholder="Contraseña">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+
+					<div class="contact100-form-checkbox">
+						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+						<label class="label-checkbox100" for="ckb1">
+							Recordar Contraseña
+						</label>
+					</div>
+
+					<div class="container-login100-form-btn">
+                                            <button onclick="ingresar()" class="login100-form-btn">
+							Ingresar
+						</button>
+					</div>
+
+					<div class="text-center p-t-90">
+						<a class="txt1" href="#">
+							Olvido Contraseña?
+                                                </a><br>
+                                            <a class="txt1" href="https://www.conversatoriomundial.com">
+							volver
+						</a>
+					</div>                                        
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+	<script src="login/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="login/vendor/animsition/js/animsition.min.js"></script>
+	<script src="login/vendor/bootstrap/js/popper.js"></script>
+	<script src="login/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="login/vendor/select2/select2.min.js"></script>
+	<script src="login/vendor/daterangepicker/moment.min.js"></script>
+	<script src="login/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="login/vendor/countdowntime/countdowntime.js"></script>
+	<script src="login/js/main.js"></script>
+        
+        <script>verificarSesion();</script>
+
+</body>
+</html>
